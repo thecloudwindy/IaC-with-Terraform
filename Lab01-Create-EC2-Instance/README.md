@@ -1,3 +1,16 @@
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [1. Tạo SSH Keypair](#1-tạo-ssh-keypair)
+- [2. Tạo 1 EC2 Resource, 1 Security Group, 1 Keypair bằng Terraform](#2-tạo-1-ec2-resource-1-security-group-1-keypair-bằng-terraform)
+- [3. Các câu lệnh thực thi](#3-các-câu-lệnh-thực-thi)
+
+<!-- /code_chunk_output -->
+
+
+
 ## 1. Tạo SSH Keypair
 - Tạo thư mục lưu trữ keypair
     `mkdir keypair`
@@ -10,7 +23,7 @@
 >
 ## 2. Tạo 1 EC2 Resource, 1 Security Group, 1 Keypair bằng Terraform
 
-#### f1-terraform-version.tf
+- #### f1-terraform-version.tf
 
 ```c
 terraform {
@@ -29,7 +42,7 @@ provider "aws" {
 }
 ```
 
-#### f2-ec2-instance-resource.tf
+- #### f2-ec2-instance-resource.tf
 ```c
 resource "aws_instance" "myEC2" {
   ami                    = "ami-0bb84b8ffd87024d8"
@@ -43,7 +56,7 @@ resource "aws_instance" "myEC2" {
 }
 ```
 
-#### f3-key-pair-resource.tf
+- #### f3-key-pair-resource.tf
 
 ```c
 resource "aws_key_pair" "lab01-sshkey" {
@@ -52,7 +65,7 @@ resource "aws_key_pair" "lab01-sshkey" {
 }
 ```
 
-#### f4-security-group-resource.tf
+- #### f4-security-group-resource.tf
 ```c
 resource "aws_security_group" "allow_tls" {
   name        = "allow_tls"
@@ -92,4 +105,10 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
   ip_protocol       = "-1" # semantically equivalent to all ports
 }
 ```
-
+## 3. Các câu lệnh thực thi
+- Lệnh khởi tạo môi trường: `terraform init`
+- Lệnh định dạng các tệp cấu hình liên quan: `terraform fmt`
+- Lệnh xác nhận cú pháp trong tệp cấu hình liên quan: `terraform validate`
+- Lệnh xem các các resources sẽ được tạo ra/ thay đổi: `terraform plan`
+- Lệnh triển khai lên môi trường thực tế: `terraform apply`
+- Lệnh huỷ bỏ tất cả resources đã được tạo ra: `terraform destroy`
